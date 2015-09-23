@@ -1,0 +1,1 @@
+require 'wordsearch/puzzle'

@@ -1,0 +1,78 @@
+#!/bin/sh ruby
+
+require 'wordsearch'
+require 'optparse'
+
+options = {
+  rows: 15,
+  columns: 15,
+  backward: false,
+  diagonal: false,
+  file: "puzzle.pdf",
+  font: "Helvetica",
+  seed: Time.now.to_i,
+  solve: false,
+  words: []
+}
+
+OptionParser.new do |opts|
+  opts.banner = "USAGE: #{$0} [options] [words] [-]"
+  opts.on "-r", "--rows ROWS" do |rows|
+    options[:rows] = rows.to_i
+  end
+  opts.on "-c", "--columns COLS" do |cols|
+    options[:columns] = cols.to_i
+  end
+  opts.on "-b", "--[no-]backward" do |backward|
+    options[:backward] = backward
+  end
+  opts.on "-d", "--[no-]diagonal" do |diagonal|
+    options[:diagonal] = diagonal
+  end
+  opts.on "-o", "--output FILENAME" do |file|
+    options[:file] = file
+  end
+  opts.on "-f", "--font FONT" do |font|
+    options[:font] = font
+  end
+  opts.on "-s", "--seed SEED" do |seed|
+    options[:seed] = seed.to_i
+  end
+  opts.on "-v", "--[no-]solve" do |solve|
+    options[:solve] = solve
+  end
+  opts.on "-m", "--message MESSAGE" do |message|
+    options[:message] = message
+  end
+  opts.on "-w", "--word-file FILE" do |file|
+    options[:words].concat(File.readlines(file).map { |word| word.strip })
+  end
+end.parse!
+
+while ARGV.any?
+  break if ARGV[0] == "-"
+  options[:words].push ARGV.shift
+end
+
+options[:words].concat(ARGF.readlines.map { |word| word.strip }) if ARGV.last == "-"
+
+if options[:words].empty?
+  abort "you must specify some words to use to create the puzzle"
+elsif options[:words].any? { |w| w.length > options[:rows] && w.length > options[:columns] }
+  abort "words must all be between #{options[:rows]} and #{options[:columns]} letters"
+end
+
+puzzle = WordSearch::Puzzle.new(options[:words],
+  rows: options[:rows],
+  columns: options[:columns],
+  diagonal: options[:diagonal],
+  backward: options[:backward],
+  message: options[:message],
+  seed: options[:seed])
+
+puts "seed: #{puzzle.seed}"
+puts "unused squares: #{puzzle.unused_squares} (of #{puzzle.grid.size})"
+
+puzzle.
+  to_pdf(font_name: options[:font]).
+  render_file(options[:file])
