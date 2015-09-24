@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.license     = 'CC Attribution 4.0 International'
 
   gem.files         = `git ls-files`.split($\)
-  gem.executables   = "bin/wordsearch"
+  gem.executables   = "wordsearch"
   gem.require_paths = ["lib"]
 
   gem.add_dependency "prawn", "~> 2.0", ">= 2.0.0"
