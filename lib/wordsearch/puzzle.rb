@@ -108,6 +108,24 @@ module WordSearch
       letters.any? ? nil : copy
     end
 
+    def to_s(solution: false)
+      s = ""
+
+      @rows.times do |row|
+        @columns.times do |col|
+          s << " " if col > 0
+          if solution
+            s << (@solution[row, col] || ".")
+          else
+            s << @grid[row, col]
+          end
+        end
+        s << "\n"
+      end
+
+      s
+    end
+
     def to_pdf(box_size: 18, margin: 18, font_name: "Helvetica", solution: true, clues: true)
       height = box_size * @rows
       width = box_size * @columns

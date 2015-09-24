@@ -47,6 +47,9 @@ OptionParser.new do |opts|
   opts.on "-w", "--word-file FILE" do |file|
     options[:words].concat(File.readlines(file).map { |word| word.strip })
   end
+  opts.on "-t", "--[no-]text" do |text|
+    options[:text] = text
+  end
 end.parse!
 
 while ARGV.any?
@@ -73,6 +76,11 @@ puzzle = WordSearch::Puzzle.new(options[:words],
 puts "seed: #{puzzle.seed}"
 puts "unused squares: #{puzzle.unused_squares} (of #{puzzle.grid.size})"
 
-puzzle.
-  to_pdf(font_name: options[:font]).
-  render_file(options[:file])
+if options[:text]
+  puts
+  puts puzzle.to_s(solution: options[:solve])
+else
+  puzzle.
+    to_pdf(font_name: options[:font]).
+    render_file(options[:file])
+end

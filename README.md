@@ -28,6 +28,7 @@ The simplest way to use the tool is via the included command-line utility:
         -v, --[no-]solve
         -m, --message MESSAGE
         -w, --word-file FILE
+        -t, --[no-]text
 
 Specify words in any of three ways; on the command-line:
 
@@ -60,6 +61,7 @@ Program arguments are:
   characters are discarded. The resulting message should be the same length
   as the number of unused squares in the puzzle.
 * `--word-file` : a text file containing words to use in the puzzle.
+* `--text` : draw the puzzle to the terminal as text, instead of emitting a PDF
 
 ## Encoding Messages
 
