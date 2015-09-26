@@ -4,7 +4,7 @@ require "wordsearch/version"
 
 Gem::Specification.new do |gem|
   gem.version     = WordSearch::Version::STRING
-  gem.name        = "wordsearch"
+  gem.name        = "wordsearch-puzzle"
   gem.authors     = ["Jamis Buck"]
   gem.email       = ["jamis@jamisbuck.org"]
   gem.homepage    = "http://github.com/jamis/wordsearch"
