@@ -10,7 +10,7 @@ documents.
 
 Use RubyGems:
 
-    $ gem install wordsearch
+    $ gem install wordsearch-puzzle
 
 ## Usage
 
