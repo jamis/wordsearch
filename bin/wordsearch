@@ -10,6 +10,7 @@ options = {
   diagonal: false,
   file: "puzzle.pdf",
   font: "Helvetica",
+  clue_font: nil,
   seed: Time.now.to_i,
   solve: false,
   words: []
@@ -34,6 +35,9 @@ OptionParser.new do |opts|
   end
   opts.on "-f", "--font FONT" do |font|
     options[:font] = font
+  end
+  opts.on "-C", "--clue-font FONT" do |font|
+    options[:clue_font] = font
   end
   opts.on "-s", "--seed SEED" do |seed|
     options[:seed] = seed.to_i
@@ -81,6 +85,6 @@ if options[:text]
   puts puzzle.to_s(solution: options[:solve])
 else
   puzzle.
-    to_pdf(font_name: options[:font]).
+    to_pdf(font_name: options[:font], clue_font: options[:clue_font] || options[:font]).
     render_file(options[:file])
 end

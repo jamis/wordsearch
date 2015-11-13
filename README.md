@@ -24,6 +24,7 @@ The simplest way to use the tool is via the included command-line utility:
         -d, --[no-]diagonal
         -o, --output FILENAME
         -f, --font FONT
+        -C, --clue-font FONT
         -s, --seed SEED
         -v, --[no-]solve
         -m, --message MESSAGE
@@ -52,6 +53,8 @@ Program arguments are:
 * `--font` : the name of a font to use to render the puzzle (defaults to `Helvetica`).
   You can use any PDF font (Helvetica, Times-Roman, Courier) or any TTF font
   by providing the full path name of the TTF file.
+* `--clue-font` : the name of a font to use to render the clues (defaults
+  to whatever font you've specified for `--font`).
 * `--seed` : the number used to seed the random number generator. By providing
   the same seed, you can (re)generate the same puzzle. This is particularly
   useful for encoding a message in the unused squares of a puzzle (see below).
@@ -100,10 +103,10 @@ random letters.)
 
 ## Caveats
 
-No word may be too large to fit on the grid, or an error will result. Also,
-trying to fit too many words into too small of a grid may take a very long
-time, and will probably fail. If you get an error, or if the utility is
-taking too long to generate the puzzle, try using a larger grid size.
+All words must be small enough to fit on the grid, or an error will result.
+Also, trying to fit too many words into too small of a grid may take a very
+long time, and will probably fail. If you get an error, or if the utility
+is taking too long to generate the puzzle, try using a larger grid size.
 
 ## License
 

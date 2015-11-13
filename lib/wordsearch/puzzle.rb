@@ -126,7 +126,7 @@ module WordSearch
       s
     end
 
-    def to_pdf(box_size: 18, margin: 18, font_name: "Helvetica", solution: true, clues: true)
+    def to_pdf(box_size: 18, margin: 18, font_name: "Helvetica", clue_font: font_name, solution: true, clues: true)
       height = box_size * @rows
       width = box_size * @columns
 
@@ -138,7 +138,7 @@ module WordSearch
         clue_font_size = clue_height * 0.7
         clue_margin = 72 / 4.0
 
-        font = Prawn::Font.load(pdf, font_name)
+        font = Prawn::Font.load(pdf, clue_font)
         max = @vocabulary.map { |word| font.compute_width_of(word, size: clue_font_size)+1 }.max
 
         width += clue_margin + max
@@ -166,6 +166,7 @@ module WordSearch
         end
 
         if clues
+          pdf.font clue_font
           x = @columns * box_size + clue_margin
           @vocabulary.each.with_index do |word, index|
             y = (@rows * box_size) - index * clue_height
