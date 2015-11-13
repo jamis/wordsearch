@@ -139,7 +139,7 @@ module WordSearch
         clue_margin = 72 / 4.0
 
         font = Prawn::Font.load(pdf, font_name)
-        max = @vocabulary.map { |word| font.compute_width_of(word, size: clue_font_size) }.max
+        max = @vocabulary.map { |word| font.compute_width_of(word, size: clue_font_size)+1 }.max
 
         width += clue_margin + max
       end
